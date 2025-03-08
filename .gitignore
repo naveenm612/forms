@@ -1,0 +1,23 @@
+# Ignore node_modules directory
+node_modules/
+client/node_modules
+Server/node_modules
+.github
+# Ignore log files
+*.log
+
+# Ignore compiled binaries
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ignore local configuration files
+.env
+.env.local
+
+# Ignore VS Code settings
+.vscode/
+# Ignoring build files
+client/build
+Server/dist
