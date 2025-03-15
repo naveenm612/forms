@@ -1,16 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TextField, Button, Typography, Box, Link, Container, Paper, IconButton } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Link,
+  Container,
+  Paper,
+  IconButton,
+  Snackbar,
+  Alert,
+  InputAdornment,
+} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 export default function SignUpForm() {
   const navigate = useNavigate();
+  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "info" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSignUp = (event) => {
+  const handleSignUp = async (event) => {
     event.preventDefault();
-    navigate("/"); 
+    const data = new FormData(event.currentTarget);
+
+    const password = data.get("password");
+    const confirmPassword = data.get("confirmPassword");
+
+    if (password !== confirmPassword) {
+      setSnackbar({ open: true, message: "Passwords do not match", severity: "error" });
+      return;
+    }
+
+    const user = {
+      name: data.get("name"),
+      email: data.get("email"),
+      password,
+    };
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        setSnackbar({ open: true, message: "User signed up successfully!", severity: "success" });
+        setTimeout(() => navigate("/"), 2000); // Delay navigation for user feedback
+      } else {
+        setSnackbar({ open: true, message: result.message, severity: "error" });
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      setSnackbar({ open: true, message: "Failed to sign up. Try again later.", severity: "error" });
+    }
   };
-  
+
+  const handleCloseSnackbar = () => {
+    setSnackbar((prev) => ({ ...prev, open: false }));
+  };
 
   return (
     <Container
@@ -68,9 +123,22 @@ export default function SignUpForm() {
             fullWidth
             name="password"
             label="Password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             autoComplete="new-password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    edge="end"
+                    aria-label="toggle password visibility"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <TextField
             margin="normal"
@@ -78,15 +146,33 @@ export default function SignUpForm() {
             fullWidth
             name="confirmPassword"
             label="Confirm Password"
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             id="confirmPassword"
             autoComplete="new-password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                    edge="end"
+                    aria-label="toggle confirm password visibility"
+                  >
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <Button type="submit" fullWidth variant="contained" color="primary" sx={{ mt: 3, mb: 2 }}>
             Sign Up
           </Button>
         </Box>
       </Paper>
+      <Snackbar open={snackbar.open} autoHideDuration={4000} onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: "100%" }}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }
