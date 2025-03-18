@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Container, Typography, Box, Grid, Paper } from "@mui/material";
 import CompleteProfile from "./CompleteProfile"; // Ensure the paths are correct
-import ExperienceForm from "./ExperienceForm";
 
 export default function ProfilePage() {
   return (
@@ -19,17 +18,9 @@ export default function ProfilePage() {
       </Typography>
 
       <Grid container spacing={4} sx={{ mt: 4 }}>
-        {/* CompleteProfile Form */}
         <Grid item xs={12} md={6}>
           <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
             <CompleteProfile />
-          </Paper>
-        </Grid>
-
-        {/* ExperienceForm */}
-        <Grid item xs={12} md={6}>
-          <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-            <ExperienceForm />
           </Paper>
         </Grid>
       </Grid>

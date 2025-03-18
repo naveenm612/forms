@@ -92,7 +92,7 @@ export default function LoginForm() {
             required
             fullWidth
             id="emailOrPhone"
-            label="Email or Phone"
+            label="Email"
             name="emailOrPhone"
             autoComplete="email"
             autoFocus
@@ -129,7 +129,7 @@ export default function LoginForm() {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       >
         <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: "100%" }}>
           {snackbarMessage}
