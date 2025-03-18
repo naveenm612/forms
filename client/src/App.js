@@ -5,6 +5,7 @@ import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import Profile from "./components/Profile";
 import CompleteProfile from "./components/CompleteProfile";
+import UpdateProfile from "./components/UpdateProfile";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profileform" element={<CompleteProfile />} />
+          <Route path="/updateprofile" element={<UpdateProfile />} />
         </Routes>
       </div>
     </Router>

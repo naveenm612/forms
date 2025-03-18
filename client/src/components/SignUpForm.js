@@ -168,7 +168,7 @@ export default function SignUpForm() {
           </Button>
         </Box>
       </Paper>
-      <Snackbar open={snackbar.open} autoHideDuration={4000} onClose={handleCloseSnackbar}>
+      <Snackbar open={snackbar.open} autoHideDuration={4000} onClose={handleCloseSnackbar}  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
         <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: "100%" }}>
           {snackbar.message}
         </Alert>
