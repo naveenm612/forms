@@ -14,7 +14,7 @@ export default function UpdateProfile() {
     country: "",
     state: "",
     city: "",
-    experience: {
+    experience: [{
       jobTitle: "",
       employmentType: "",
       companyName: "",
@@ -24,8 +24,9 @@ export default function UpdateProfile() {
       currentCTC: "",
       expectedCTC: "",
       description: "",
-    },
+    }],
   });
+  console.log("profileData",profileData)
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -58,24 +59,33 @@ export default function UpdateProfile() {
     const { id, value } = event.target;
     setProfileData((prevState) => ({
       ...prevState,
-      experience: {
-        ...prevState.experience,
-        [id]: value,
-      },
+      experience: prevState.experience.map((exp, index) =>
+        index === 0 ? { ...exp, [id]: value } : exp
+      ),
     }));
   };
+  
 console.log("handleExperienceChange",handleExperienceChange)
   const handleForm = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.put("http://localhost:5000/api/profile", profileData);
+      // const response = await axios.put("http://localhost:5000/api/profile", profileData);
+      const response = await axios.put(
+        `http://localhost:5000/api/profile/${profileData._id}`, // Use the profile ID
+        profileData
+      );
       setSnackbar({
         open: true,
         message: "Profile updated successfully!",
         severity: "success",
       });
       console.log(response.data);
+
+      setTimeout(() => {
+        navigate("/profile");
+      }, 5000);
+      
     } catch (error) {
       console.error("Failed to update profile", error);
       setSnackbar({
@@ -144,7 +154,7 @@ console.log("handleExperienceChange",handleExperienceChange)
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
+              {/* <FormControl fullWidth>
                 <InputLabel id="gender-label">Gender</InputLabel>
                 <Select
                   labelId="gender-label"
@@ -159,7 +169,15 @@ console.log("handleExperienceChange",handleExperienceChange)
                   <MenuItem value="female">Female</MenuItem>
                   <MenuItem value="other">Other</MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl> */}
+               <TextField
+                required
+                fullWidth
+                id="gender"
+                label="Gender"
+                value={profileData.gender}
+                onChange={handleInputChange}
+              />
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
@@ -203,12 +221,13 @@ console.log("handleExperienceChange",handleExperienceChange)
                 fullWidth
                 id="jobTitle"
                 label="Job Title"
-                value={profileData.experience.jobTitle}
+                // value={profileData.experience.jobTitle}
+                value={profileData.experience[0]?.jobTitle || ""}
                 onChange={handleExperienceChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormControl fullWidth required>
+              {/* <FormControl fullWidth required>
                 <InputLabel id="employment-type-label">Employment Type</InputLabel>
                 <Select
                   labelId="employment-type-label"
@@ -224,7 +243,15 @@ console.log("handleExperienceChange",handleExperienceChange)
                   <MenuItem value="internship">Internship</MenuItem>
                   <MenuItem value="freelance">Freelance</MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl> */}
+             <TextField
+                required
+                fullWidth
+                id="employment-type"
+                label="Employment Type"
+                value={profileData.experience[0]?.employmentType}
+                onChange={handleExperienceChange}
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -232,7 +259,7 @@ console.log("handleExperienceChange",handleExperienceChange)
                 fullWidth
                 id="companyName"
                 label="Company Name"
-                value={profileData.experience.companyName}
+                value={profileData.experience[0]?.companyName}
                 onChange={handleExperienceChange}
               />
             </Grid>
@@ -242,7 +269,7 @@ console.log("handleExperienceChange",handleExperienceChange)
                 fullWidth
                 id="location"
                 label="Location"
-                value={profileData.experience.location}
+                value={profileData.experience[0]?.location}
                 onChange={handleExperienceChange}
               />
             </Grid>
@@ -254,7 +281,7 @@ console.log("handleExperienceChange",handleExperienceChange)
                 label="Start Date"
                 type="date"
                 InputLabelProps={{ shrink: true }}
-                value={profileData.experience.startDate}
+                value={profileData.experience[0]?.startDate}
                 onChange={handleExperienceChange}
               />
             </Grid>
@@ -266,7 +293,7 @@ console.log("handleExperienceChange",handleExperienceChange)
                 label="End Date"
                 type="date"
                 InputLabelProps={{ shrink: true }}
-                value={profileData.experience.endDate}
+                value={profileData.experience[0]?.endDate}
                 onChange={handleExperienceChange}
               />
             </Grid>
@@ -276,7 +303,7 @@ console.log("handleExperienceChange",handleExperienceChange)
                 fullWidth
                 id="currentCTC"
                 label="Current CTC (₹)"
-                value={profileData.experience.currentCTC}
+                value={profileData.experience[0]?.currentCTC}
                 onChange={handleExperienceChange}
               />
             </Grid>
@@ -286,7 +313,7 @@ console.log("handleExperienceChange",handleExperienceChange)
                 fullWidth
                 id="expectedCTC"
                 label="Expected CTC (₹)"
-                value={profileData.experience.expectedCTC}
+                value={profileData.experience[0]?.expectedCTC}
                 onChange={handleExperienceChange}
               />
             </Grid>
@@ -296,7 +323,7 @@ console.log("handleExperienceChange",handleExperienceChange)
                 fullWidth
                 id="description"
                 label="Description"
-                value={profileData.experience.description}
+                value={profileData.experience[0]?.description}
                 onChange={handleExperienceChange}
                 multiline
                 rows={4}

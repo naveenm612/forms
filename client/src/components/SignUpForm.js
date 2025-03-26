@@ -53,7 +53,8 @@ export default function SignUpForm() {
       const result = await response.json();
       if (response.ok) {
         setSnackbar({ open: true, message: "User signed up successfully!", severity: "success" });
-        setTimeout(() => navigate("/"), 2000); // Delay navigation for user feedback
+        // setTimeout(() => navigate("/"), 2000);
+        setTimeout(() => navigate("/profile"), 2000); // Delay navigation for user feedback
       } else {
         setSnackbar({ open: true, message: result.message, severity: "error" });
       }
