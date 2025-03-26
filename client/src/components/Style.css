@@ -1,0 +1,15 @@
+.firstName {
+    font-size: 16px !important;
+    margin-left:20px !important;
+    font-weight: Bold !important;
+    color:#949494 !important;
+    opacity: 0.8;
+  }
+
+.lastName {
+    font-size: 16px !important;
+    margin-left:20px !important;
+    font-weight: 600 !important;
+    color:#333333 !important;
+    opacity: 0.8;
+  }

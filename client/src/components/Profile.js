@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Card, CardContent, IconButton } from "@mui/material";
+import { Card, CardContent, Grid, IconButton } from "@mui/material";
 import Button from "@mui/material/Button";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditIcon from "@mui/icons-material/Edit";
@@ -8,6 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
+import "./Style.css";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -98,27 +99,142 @@ const Profile = () => {
           {profile ? (
             <Card sx={{ mb: 1 }}>
               <CardContent>
-                <Typography variant="body1" sx={{ mt: 1 }}>
-                  <strong>Name:</strong> {profile.name}
-                </Typography>
-                <Typography variant="body1" sx={{ mt: 1 }}>
-                  <strong>E-Mail:</strong> {profile.email}
-                </Typography>
-                <Typography variant="body1" sx={{ mt: 1 }}>
-                  <strong>Mobile Number:</strong> {profile.mobileNumber}
-                </Typography>
-                <Typography variant="body1" sx={{ mt: 1 }}>
-                  <strong>Date of Birth:</strong> {profile.dob}
-                </Typography>
-                <Typography variant="body1" sx={{ mt: 1 }}>
-                  <strong>Country:</strong> {profile.country}
-                </Typography>
-                <Typography variant="body1" sx={{ mt: 1 }}>
-                  <strong>State:</strong> {profile.state}
-                </Typography>
-                <Typography variant="body1" sx={{ mt: 1 }}>
-                  <strong> City:</strong> {profile.city}
-                </Typography>
+                <div>
+                  <Grid container spacing={2}>
+                    <Grid item md={4}>
+                      <div className="firstName">Name</div>
+                    </Grid>
+                    <Grid item md={1}>
+                      :
+                    </Grid>
+                    <Grid item md={7}>
+                      <span className="lastName">
+                        {profile.name
+                          ? profile.name
+                          : "-"}
+                      </span>
+                    </Grid>
+                  </Grid>
+                </div>
+                <div>
+                  <Grid container spacing={2}>
+                    <Grid item md={4}>
+                      <div className="firstName">E-Mail</div>
+                    </Grid>
+                    <Grid item md={1}>
+                      :
+                    </Grid>
+                    <Grid item md={7}>
+                      <span className="lastName">
+                        {profile.email
+                          ? profile.email
+                          : "-"}
+                      </span>
+                    </Grid>
+                  </Grid>
+                </div>
+                <div>
+                  <Grid container spacing={2}>
+                    <Grid item md={4}>
+                      <div className="firstName">Gender</div>
+                    </Grid>
+                    <Grid item md={1}>
+                      :
+                    </Grid>
+                    <Grid item md={7}>
+                      <span className="lastName">
+                        {profile.gender
+                          ? profile.gender
+                          : "-"}
+                      </span>
+                    </Grid>
+                  </Grid>
+                </div>
+                <div>
+                  <Grid container spacing={2}>
+                    <Grid item md={4}>
+                      <div className="firstName">Mobile Number</div>
+                    </Grid>
+                    <Grid item md={1}>
+                      :
+                    </Grid>
+                    <Grid item md={7}>
+                      <span className="lastName">
+                        {profile.mobileNumber
+                          ? profile.mobileNumber
+                          : "-"}
+                      </span>
+                    </Grid>
+                  </Grid>
+                </div>
+                <div>
+                  <Grid container spacing={2}>
+                    <Grid item md={4}>
+                      <div className="firstName">Date of Birth</div>
+                    </Grid>
+                    <Grid item md={1}>
+                      :
+                    </Grid>
+                    <Grid item md={7}>
+                      <span className="lastName">
+                        {profile.dob
+                          ? profile.dob
+                          : "-"}
+                      </span>
+                    </Grid>
+                  </Grid>
+                </div>
+                <div>
+                  <Grid container spacing={2}>
+                    <Grid item md={4}>
+                      <div className="firstName">Country</div>
+                    </Grid>
+                    <Grid item md={1}>
+                      :
+                    </Grid>
+                    <Grid item md={7}>
+                      <span className="lastName">
+                        {profile.country
+                          ? profile.country
+                          : "-"}
+                      </span>
+                    </Grid>
+                  </Grid>
+                </div>
+                <div>
+                  <Grid container spacing={2}>
+                    <Grid item md={4}>
+                      <div className="firstName">State</div>
+                    </Grid>
+                    <Grid item md={1}>
+                      :
+                    </Grid>
+                    <Grid item md={7}>
+                      <span className="lastName">
+                        {profile.state
+                          ? profile.state
+                          : "-"}
+                      </span>
+                    </Grid>
+                  </Grid>
+                </div>
+                <div>
+                  <Grid container spacing={2}>
+                    <Grid item md={4}>
+                      <div className="firstName">City</div>
+                    </Grid>
+                    <Grid item md={1}>
+                      :
+                    </Grid>
+                    <Grid item md={7}>
+                      <span className="lastName">
+                        {profile.city
+                          ? profile.city
+                          : "-"}
+                      </span>
+                    </Grid>
+                  </Grid>
+                </div>
               </CardContent>
             </Card>
           ) : (
@@ -127,8 +243,8 @@ const Profile = () => {
             </Typography>
           )}
 
-        {/* Experience Section */}
-        
+          {/* Experience Section */}
+
           <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
             Experience
           </Typography>
@@ -136,30 +252,159 @@ const Profile = () => {
             profile.experience.map((exp, index) => (
               <Card sx={{ mb: 2 }} key={index}>
                 <CardContent>
-                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                    {exp.jobTitle}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mt: 1 }}>
-                    {exp.companyName} 
-                  </Typography>
-                  <Typography variant="body1" sx={{ mt: 1 }}>
-                   {exp.employmentType}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mt: 1 }}>
-                    {exp.location}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mt: 1 }}>
-                    {exp.startDate} - {exp.endDate || "Present"}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mt: 1 }}>
-                    {exp.currentCTC}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mt: 1 }}>
-                    {exp.expectedCTC}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mt: 1 }}>
-                    {exp.description}
-                  </Typography>
+                  <div>
+                    <Grid container spacing={2}>
+                      <Grid item md={4}>
+                        <div className="firstName">Job Title</div>
+                      </Grid>
+                      <Grid item md={1}>
+                        :
+                      </Grid>
+                      <Grid item md={7}>
+                        <span className="lastName">
+                          {exp.jobTitle
+                            ? exp.jobTitle
+                            : "-"}
+                        </span>
+                      </Grid>
+                    </Grid>
+                  </div>
+                  <div>
+                    <Grid container spacing={2}>
+                      <Grid item md={4}>
+                        <div className="firstName">Company Name</div>
+                      </Grid>
+                      <Grid item md={1}>
+                        :
+                      </Grid>
+                      <Grid item md={7}>
+                        <span className="lastName">
+                          {exp.companyName
+                            ? exp.companyName
+                            : "-"}
+                        </span>
+                      </Grid>
+                    </Grid>
+                  </div>
+                  <div>
+                    <Grid container spacing={2}>
+                      <Grid item md={4}>
+                        <div className="firstName">Employment Type</div>
+                      </Grid>
+                      <Grid item md={1}>
+                        :
+                      </Grid>
+                      <Grid item md={7}>
+                        <span className="lastName">
+                          {exp.employmentType
+                            ? exp.employmentType
+                            : "-"}
+                        </span>
+                      </Grid>
+                    </Grid>
+                  </div>
+                  <div>
+                    <Grid container spacing={2}>
+                      <Grid item md={4}>
+                        <div className="firstName">Location</div>
+                      </Grid>
+                      <Grid item md={1}>
+                        :
+                      </Grid>
+                      <Grid item md={7}>
+                        <span className="lastName">
+                          {exp.location
+                            ? exp.location
+                            : "-"}
+                        </span>
+                      </Grid>
+                    </Grid>
+                  </div>
+                  <div>
+                    <Grid container spacing={2}>
+                      <Grid item md={4}>
+                        <div className="firstName">Start Date</div>
+                      </Grid>
+                      <Grid item md={1}>
+                        :
+                      </Grid>
+                      <Grid item md={7}>
+                        <span className="lastName">
+                          {exp.startDate
+                            ? exp.startDate
+                            : "-"}
+                        </span>
+                      </Grid>
+                    </Grid>
+                  </div>
+                  <div>
+                    <Grid container spacing={2}>
+                      <Grid item md={4}>
+                        <div className="firstName">End Date</div>
+                      </Grid>
+                      <Grid item md={1}>
+                        :
+                      </Grid>
+                      <Grid item md={7}>
+                        <span className="lastName">
+                          {exp.endDate
+                            ? exp.endDate
+                            : "Present"}
+                        </span>
+                      </Grid>
+                    </Grid>
+                  </div>
+                  <div>
+                    <Grid container spacing={2}>
+                      <Grid item md={4}>
+                        <div className="firstName">Current CTC (₹)</div>
+                      </Grid>
+                      <Grid item md={1}>
+                        :
+                      </Grid>
+                      <Grid item md={7}>
+                        <span className="lastName">
+                          {exp.currentCTC
+                            ? exp.currentCTC
+                            : "-"}
+                        </span>
+                      </Grid>
+                    </Grid>
+                  </div>
+                  <div>
+                    <Grid container spacing={2}>
+                      <Grid item md={4}>
+                        <div className="firstName">Expected CTC (₹)</div>
+                      </Grid>
+                      <Grid item md={1}>
+                        :
+                      </Grid>
+                      <Grid item md={7}>
+                        <span className="lastName">
+                          {exp.expectedCTC
+                            ? exp.expectedCTC
+                            : "-"}
+                        </span>
+                      </Grid>
+                    </Grid>
+                  </div>
+                  <div>
+                    <Grid container spacing={2}>
+                      <Grid item md={4}>
+                        <div className="firstName">Description</div>
+                      </Grid>
+                      <Grid item md={1}>
+                        :
+                      </Grid>
+                      <Grid item md={7}>
+                        <span className="lastName">
+                          {exp.description
+                            ? exp.description
+                            : "-"}
+                        </span>
+                      </Grid>
+                    </Grid>
+                  </div>
                 </CardContent>
               </Card>
             ))

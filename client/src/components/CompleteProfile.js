@@ -134,7 +134,7 @@ export default function CompleteProfile() {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormControl fullWidth required>
+              {/* <FormControl fullWidth required>
                 <InputLabel id="gender-label">Gender</InputLabel>
                 <Select labelId="gender-label" id="gender" defaultValue="">
                   <MenuItem value="Male">Male</MenuItem>
@@ -143,8 +143,9 @@ export default function CompleteProfile() {
                   <MenuItem value="Other">Other</MenuItem>
                   <MenuItem value="Prefer not to say">Prefer not to say</MenuItem>
                 </Select>
-              </FormControl>
-            </Grid>
+              </FormControl> */}
+              <TextField required fullWidth id="gender" label="Gender" />
+              </Grid>
             <Grid item xs={12} sm={4}>
               <TextField required fullWidth id="country" label="Country" />
             </Grid>
@@ -165,15 +166,7 @@ export default function CompleteProfile() {
               <TextField required fullWidth id="job-title" label="Job Title" />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormControl fullWidth required>
-                <InputLabel id="employment-type-label">Employment Type</InputLabel>
-                <Select labelId="employment-type-label" id="employment-type" defaultValue="">
-                  <MenuItem value="full-time">Full-Time</MenuItem>
-                  <MenuItem value="part-time">Part-Time</MenuItem>
-                  <MenuItem value="internship">Internship</MenuItem>
-                  <MenuItem value="freelance">Freelance</MenuItem>
-                </Select>
-              </FormControl>
+               <TextField required fullWidth id="employment-type" label="Employment Type" />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField required fullWidth id="company-name" label="Company Name" />
