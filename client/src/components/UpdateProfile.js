@@ -485,8 +485,51 @@ export default function UpdateProfile() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Typography variant="h5" align="center">
+     <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                minHeight: "100vh",
+                bgcolor: "black",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              {/* Background Shapes */}
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "10%",
+                  left: "5%",
+                  width: "100px",
+                  height: "100px",
+                  bgcolor: "blue",
+                  borderRadius: "50%",
+                  zIndex: 0,
+                }}
+              />
+              <Box
+                sx={{
+                  position: "absolute",
+                  bottom: "10%",
+                  right: "5%",
+                  width: "150px",
+                  height: "150px",
+                  bgcolor: "blue",
+                  // borderRadius: "50%",
+                  zIndex: 0,
+                }}
+              />
+          
+        <Container maxWidth="md"  sx={{
+              zIndex: 1,
+              bgcolor: "#1c1c1c",
+              borderRadius: 4,
+              p: 4,
+              boxShadow: 4,
+            }}>
+      <Typography variant="h5" align="center" color="white">
         Update Your Profile
       </Typography>
       <Paper elevation={3} sx={{ p: 4, mt: 4, borderRadius: 2 }}>
@@ -677,6 +720,7 @@ export default function UpdateProfile() {
               </Grid>
               <Grid item xs={12}>
               <Box sx={{ mt: 2, textAlign: "right" }}>   
+              {profileData.experience.length > 1 && (
                 <Button
                   variant="outlined"
                   color="error"
@@ -684,6 +728,7 @@ export default function UpdateProfile() {
                 >
                   Remove Experience
                 </Button>
+              )}
                 </Box>
               </Grid>
             </Grid>
@@ -715,5 +760,6 @@ export default function UpdateProfile() {
         </Alert>
       </Snackbar>
     </Container>
+    </Box>
   );
 }

@@ -375,15 +375,58 @@ export default function CompleteProfile() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Typography variant="h5" align="center" gutterBottom>
+     <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "100vh",
+            bgcolor: "black",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          {/* Background Shapes */}
+          <Box
+            sx={{
+              position: "absolute",
+              top: "10%",
+              left: "5%",
+              width: "100px",
+              height: "100px",
+              bgcolor: "blue",
+              borderRadius: "50%",
+              zIndex: 0,
+            }}
+          />
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: "10%",
+              right: "5%",
+              width: "150px",
+              height: "150px",
+              bgcolor: "blue",
+              // borderRadius: "50%",
+              zIndex: 0,
+            }}
+          />
+      
+    <Container maxWidth="md"  sx={{
+          zIndex: 1,
+          bgcolor: "#1c1c1c",
+          borderRadius: 4,
+          p: 4,
+          boxShadow: 4,
+        }}>
+      <Typography variant="h5" align="center" color="white" gutterBottom>
         Complete Your Profile
       </Typography>
-      <Typography variant="subtitle1" align="center" color="textSecondary" gutterBottom>
+      <Typography variant="subtitle1" align="center" color="white" gutterBottom>
         Enter your details to complete your profile.
       </Typography>
 
-      <Paper elevation={3} sx={{ p: 4, mt: 4, borderRadius: 2 }}>
+      <Paper elevation={3} sx={{ p: 4, mt: 4, borderRadius: 2, }}>
         {/* Basic Information */}
         <Typography variant="h6" gutterBottom>
           Basic Information
@@ -539,6 +582,7 @@ export default function CompleteProfile() {
                 </Grid>
               </Grid>
               <Box sx={{ mt: 2, textAlign: "right" }}>
+              {experiences.length > 1 && (
                 <Button
                   color="error"
                   variant="outlined"
@@ -546,6 +590,7 @@ export default function CompleteProfile() {
                 >
                   Remove
                 </Button>
+              )}
               </Box>
             </Box>
           ))}
@@ -573,5 +618,6 @@ export default function CompleteProfile() {
         </Alert>
       </Snackbar>
     </Container>
+    </Box>
   );
 }

@@ -16,6 +16,9 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import emailIcon from '../Assests/email.svg';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import PersonIcon from '@mui/icons-material/Person';
 
 export default function SignUpForm() {
   const navigate = useNavigate();
@@ -68,112 +71,317 @@ export default function SignUpForm() {
     setSnackbar((prev) => ({ ...prev, open: false }));
   };
 
+  // return (
+  //   <Container
+  //     component="main"
+  //     maxWidth="xs"
+  //     sx={{
+  //       display: "flex",
+  //       alignItems: "center",
+  //       justifyContent: "center",
+  //       minHeight: "100vh",
+  //       bgcolor: "background.default",
+  //     }}
+  //   >
+  //     <Paper elevation={3} sx={{ padding: 4, borderRadius: 2 }}>
+  //       <Box display="flex" alignItems="center" mb={2}>
+  //         <IconButton onClick={() => navigate("/")} sx={{ color: "text.secondary" }}>
+  //           <ArrowBackIcon />
+  //         </IconButton>
+  //         <Typography variant="body2" color="text.secondary" sx={{ marginLeft: 1 }}>
+  //           Back
+  //         </Typography>
+  //       </Box>
+  //       <Typography component="h2" variant="h5" align="center" gutterBottom>
+  //         Create Your Account
+  //       </Typography>
+  //       <Typography variant="body2" align="center" color="textSecondary" gutterBottom>
+  //         Already have an account?{" "}
+  //         <Link component="button" onClick={() => navigate("/")} color="primary">
+  //           Log in
+  //         </Link>
+  //       </Typography>
+  //       <Box component="form" noValidate sx={{ mt: 2 }} onSubmit={handleSignUp}>
+  //         <TextField
+  //           margin="normal"
+  //           required
+  //           fullWidth
+  //           id="name"
+  //           label="Name"
+  //           name="name"
+  //           autoComplete="name"
+  //           autoFocus
+  //         />
+  //         <TextField
+  //           margin="normal"
+  //           required
+  //           fullWidth
+  //           id="email"
+  //           label="Email"
+  //           name="email"
+  //           autoComplete="email"
+  //         />
+  //         <TextField
+  //           margin="normal"
+  //           required
+  //           fullWidth
+  //           name="password"
+  //           label="Password"
+  //           type={showPassword ? "text" : "password"}
+  //           id="password"
+  //           autoComplete="new-password"
+  //           InputProps={{
+  //             endAdornment: (
+  //               <InputAdornment position="end">
+  //                 <IconButton
+  //                   onClick={() => setShowPassword((prev) => !prev)}
+  //                   edge="end"
+  //                   aria-label="toggle password visibility"
+  //                 >
+  //                   {showPassword ? <VisibilityOff /> : <Visibility />}
+  //                 </IconButton>
+  //               </InputAdornment>
+  //             ),
+  //           }}
+  //         />
+  //         <TextField
+  //           margin="normal"
+  //           required
+  //           fullWidth
+  //           name="confirmPassword"
+  //           label="Confirm Password"
+  //           type={showConfirmPassword ? "text" : "password"}
+  //           id="confirmPassword"
+  //           autoComplete="new-password"
+  //           InputProps={{
+  //             endAdornment: (
+  //               <InputAdornment position="end">
+  //                 <IconButton
+  //                   onClick={() => setShowConfirmPassword((prev) => !prev)}
+  //                   edge="end"
+  //                   aria-label="toggle confirm password visibility"
+  //                 >
+  //                   {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+  //                 </IconButton>
+  //               </InputAdornment>
+  //             ),
+  //           }}
+  //         />
+  //         <Button type="submit" fullWidth variant="contained" color="primary" sx={{ mt: 3, mb: 2 }}>
+  //           Sign Up
+  //         </Button>
+  //       </Box>
+  //     </Paper>
+  //     <Snackbar open={snackbar.open} autoHideDuration={4000} onClose={handleCloseSnackbar}  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+  //       <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: "100%" }}>
+  //         {snackbar.message}
+  //       </Alert>
+  //     </Snackbar>
+  //   </Container>
+  // );
+
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
+    <Box
       sx={{
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         minHeight: "100vh",
-        bgcolor: "background.default",
+        bgcolor: "black",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <Paper elevation={3} sx={{ padding: 4, borderRadius: 2 }}>
-        <Box display="flex" alignItems="center" mb={2}>
-          <IconButton onClick={() => navigate("/")} sx={{ color: "text.secondary" }}>
+      {/* Background Shapes */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: "10%",
+          left: "5%",
+          width: "100px",
+          height: "100px",
+          bgcolor: "blue",
+          borderRadius: "50%",
+          zIndex: 0,
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: "10%",
+          right: "5%",
+          width: "150px",
+          height: "150px",
+          bgcolor: "blue",
+          // borderRadius: "50%",
+          zIndex: 0,
+        }}
+      />
+
+      <Container
+        component="main"
+        maxWidth="xs"
+        sx={{
+          zIndex: 1,
+          bgcolor: "#1c1c1c",
+          borderRadius: 4,
+          p: 4,
+          boxShadow: 4,
+        }}
+      >
+        <Box display="flex" alignItems="center" >
+          <IconButton onClick={() => navigate("/")} sx={{ color: "white" }}>
             <ArrowBackIcon />
           </IconButton>
-          <Typography variant="body2" color="text.secondary" sx={{ marginLeft: 1 }}>
+          <Typography variant="body2" color="white" sx={{ marginLeft: 1 }}>
             Back
           </Typography>
         </Box>
-        <Typography component="h2" variant="h5" align="center" gutterBottom>
+        <Typography component="h2" variant="h5" align="center" gutterBottom sx={{ color: "white" }}>
           Create Your Account
         </Typography>
-        <Typography variant="body2" align="center" color="textSecondary" gutterBottom>
+        <Typography variant="body2" align="center" sx={{ color: "white" }} gutterBottom>
           Already have an account?{" "}
-          <Link component="button" onClick={() => navigate("/")} color="primary">
+          <Link component="button" onClick={() => navigate("/")} sx={{ color: "blue" }}>
             Log in
           </Link>
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 2 }} onSubmit={handleSignUp}>
-          <TextField
-            margin="normal"
-            required
+        <Box component="form" noValidate onSubmit={handleSignUp}>
+          <div style={{ marginBottom: "10px" }}>
+            <div style={{ marginTop: "10px" }}>
+              <div
+                style={{ display: "flex", position: "relative", top: "2px", color: "#ffffff" }}
+              >
+                <PersonIcon style={{ marginRight: "8px" }} />
+                Name
+              </div>
+            </div>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              placeholder="Name"
+              name="name"
+              autoComplete="name"
+              autoFocus
+              sx={{ bgcolor: "white", borderRadius: 2 }}
+            />
+          </div>
+          <div style={{ marginBottom: "10px" }}>
+            <div style={{ marginTop: "10px" }}>
+              <div
+                style={{ display: "flex", position: "relative", top: "2px", color: "#ffffff" }}
+              >
+                <img
+                  src={emailIcon}
+                  alt="email"
+                  style={{ width: 24, height: 24, marginRight: "8px" }}
+                />
+                Email
+              </div>
+            </div>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              placeholder="Email"
+              name="email"
+              autoComplete="email"
+              sx={{ bgcolor: "white", borderRadius: 2 }}
+            />
+          </div>
+          <div style={{ marginBottom: "10px" }}>
+            <div style={{ marginTop: "10px" }}>
+              <div
+                style={{ display: "flex", position: "relative", top: "2px", color: "#ffffff" }}
+              >
+                <VpnKeyIcon style={{ marginRight: "8px" }} />
+                Password
+              </div>
+            </div>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              placeholder="Password"
+              type={showPassword ? "text" : "password"}
+              id="password"
+              autoComplete="new-password"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      edge="end"
+                      aria-label="toggle password visibility"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              sx={{ bgcolor: "white", borderRadius: 2 }}
+            />
+          </div>
+          <div style={{ marginBottom: "10px" }}>
+            <div style={{ marginTop: "10px" }}>
+              <div
+                style={{ display: "flex", position: "relative", top: "2px", color: "#ffffff" }}
+              >
+                <VpnKeyIcon style={{ marginRight: "8px" }} />
+                Confirm Password
+              </div>
+            </div>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              type={showConfirmPassword ? "text" : "password"}
+              id="confirmPassword"
+              autoComplete="new-password"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowConfirmPassword((prev) => !prev)}
+                      edge="end"
+                      aria-label="toggle confirm password visibility"
+                    >
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              sx={{ bgcolor: "white", borderRadius: 2 }}
+            />
+          </div>
+          <Button
+            type="submit"
             fullWidth
-            id="name"
-            label="Name"
-            name="name"
-            autoComplete="name"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email"
-            name="email"
-            autoComplete="email"
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type={showPassword ? "text" : "password"}
-            id="password"
-            autoComplete="new-password"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    edge="end"
-                    aria-label="toggle password visibility"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="confirmPassword"
-            label="Confirm Password"
-            type={showConfirmPassword ? "text" : "password"}
-            id="confirmPassword"
-            autoComplete="new-password"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowConfirmPassword((prev) => !prev)}
-                    edge="end"
-                    aria-label="toggle confirm password visibility"
-                  >
-                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button type="submit" fullWidth variant="contained" color="primary" sx={{ mt: 3, mb: 2 }}>
+            variant="contained"
+            sx={{ mt: 3, mb: 2, bgcolor: "blue", color: "white", borderRadius: 2 }}
+          >
             Sign Up
           </Button>
         </Box>
-      </Paper>
-      <Snackbar open={snackbar.open} autoHideDuration={4000} onClose={handleCloseSnackbar}  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+      </Container>
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
         <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: "100%" }}>
           {snackbar.message}
         </Alert>
       </Snackbar>
-    </Container>
+    </Box>
   );
+
 }

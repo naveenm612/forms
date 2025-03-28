@@ -37,7 +37,38 @@ const Profile = () => {
   };
 
   return (
-    <Box sx={{ minHeight: "100vh", backgroundColor: "#f5f5f5", p: 2 }}>
+    
+    <Box 
+    sx={{
+      minHeight: "100vh",
+      bgcolor: "black",
+      position: "relative",
+      overflow: "hidden",
+    }}>
+       <Box
+            sx={{
+              position: "absolute",
+              top: "10%",
+              left: "5%",
+              width: "100px",
+              height: "100px",
+              bgcolor: "blue",
+              borderRadius: "50%",
+              zIndex: 0,
+            }}
+          />
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: "10%",
+              right: "5%",
+              width: "150px",
+              height: "150px",
+              bgcolor: "blue",
+              // borderRadius: "50%",
+              zIndex: 0,
+            }}
+          />
       <Box sx={{ maxWidth: 800, mx: "auto" }}>
         {/* Profile Avatar and Name */}
         <Box
