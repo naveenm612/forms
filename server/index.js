@@ -5,6 +5,8 @@ const cors = require("cors");
 
 const profileRoutes = require("./routes/profileRoutes");
 const authRoutes = require("./routes/auth");
+const employmentTypeRoutes = require("./routes/employmentType");
+const genderRoutes = require("./routes/gender");
 
 dotenv.config();
 
@@ -26,6 +28,8 @@ mongoose
 // Routes
 app.use("/api/profile", profileRoutes);
 app.use("/api/auth", authRoutes); 
+app.use("/api/employment-types", employmentTypeRoutes);
+app.use("/api/genders", genderRoutes);
 // Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

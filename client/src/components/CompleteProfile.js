@@ -248,7 +248,7 @@
 
 
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   TextField,
@@ -262,6 +262,7 @@ import {
   Alert,
   FormControlLabel,
   Container,
+  MenuItem,
 } from "@mui/material";
 import axios from "axios";
 
@@ -275,7 +276,10 @@ export default function CompleteProfile() {
     message: "",
     severity: "success",
   });
-  const [currentJob, setCurrentJob] = useState(false);
+  // const [currentJob, setCurrentJob] = useState(false);
+  const [employmentTypes, setEmploymentTypes] = useState([]);
+  const [genderOptions, setGenderOptions] = useState([]);
+  const [gender, setGender] = useState("");
   const [experiences, setExperiences] = useState([
     {
       jobTitle: "",
@@ -291,6 +295,22 @@ export default function CompleteProfile() {
     },
   ]);
 
+  useEffect(() => {
+    const fetchOptions = async () => {
+      try {
+        const [employmentRes, genderRes] = await Promise.all([
+          axios.get("http://localhost:5000/api/employment-types"),
+          axios.get("http://localhost:5000/api/genders"),
+        ]);
+        setEmploymentTypes(employmentRes.data);
+        setGenderOptions(genderRes.data);
+      } catch (err) {
+        console.error("Failed to fetch options:", err);
+      }
+    };
+
+    fetchOptions();
+  }, []);
   // Handle mobile number change
   const handleMobileNumberChange = (event) => {
     const value = event.target.value;
@@ -340,7 +360,7 @@ export default function CompleteProfile() {
       mobileNumber: mobileNumber,
       email: document.getElementById("email").value,
       dob: document.getElementById("dob").value || null,
-      gender: document.getElementById("gender").value,
+      gender: gender,
       country: document.getElementById("country").value,
       state: document.getElementById("state").value,
       city: document.getElementById("city").value,
@@ -381,7 +401,7 @@ export default function CompleteProfile() {
             alignItems: "center",
             justifyContent: "center",
             minHeight: "100vh",
-            bgcolor: "black",
+            bgcolor: "white",
             position: "relative",
             overflow: "hidden",
           }}
@@ -459,9 +479,27 @@ export default function CompleteProfile() {
                 InputLabelProps={{ shrink: true }}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <TextField required fullWidth id="gender" label="Gender" />
-            </Grid>
+            </Grid> */}
+              <Grid item xs={12} sm={6}>
+              <TextField
+  select
+  required
+  fullWidth
+  id="gender"
+  label="Gender"
+  value={gender}
+  onChange={(e) => setGender(e.target.value)}
+>
+  {genderOptions?.map((option) => (
+    <MenuItem key={option._id} value={option.name}>
+      {option.name}
+    </MenuItem>
+  ))}
+</TextField>
+
+              </Grid>
             <Grid item xs={12} sm={4}>
               <TextField required fullWidth id="country" label="Country" />
             </Grid>
@@ -489,7 +527,7 @@ export default function CompleteProfile() {
                     onChange={(e) => handleExperienceChange(index, "jobTitle", e.target.value)}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                {/* <Grid item xs={12} sm={6}>
                   <TextField
                     required
                     fullWidth
@@ -497,7 +535,25 @@ export default function CompleteProfile() {
                     value={exp.employmentType}
                     onChange={(e) => handleExperienceChange(index, "employmentType", e.target.value)}
                   />
-                </Grid>
+                </Grid> */}
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      select
+                      required
+                      fullWidth
+                      label="Employment Type"
+                      value={exp.employmentType}
+                      onChange={(e) =>
+                        handleExperienceChange(index, "employmentType", e.target.value)
+                      }
+                    >
+                      {employmentTypes?.map((option) => (
+                        <MenuItem key={option} value={option.name}>
+                          {option.name}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     required

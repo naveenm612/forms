@@ -227,7 +227,7 @@ export default function LoginForm() {
         alignItems: "center",
         justifyContent: "center",
         minHeight: "100vh",
-        bgcolor: "black",
+        bgcolor: "white",
         position: "relative",
         overflow: "hidden",
       }}

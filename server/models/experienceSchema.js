@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 const experienceSchema = new mongoose.Schema(
   {
     jobTitle: { type: String },
-    employmentType: { type: String },
+    // employmentType: { type: String },
+    employmentType: {
+      type: String,
+      enum: ['Full-Time', 'Part-Time', 'Freelance'],
+    },    
     companyName: { type: String },
     location: { type: String },
     startDate: { type: String },

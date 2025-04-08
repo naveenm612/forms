@@ -187,7 +187,7 @@ export default function SignUpForm() {
         alignItems: "center",
         justifyContent: "center",
         minHeight: "100vh",
-        bgcolor: "black",
+        bgcolor: "white",
         position: "relative",
         overflow: "hidden",
       }}

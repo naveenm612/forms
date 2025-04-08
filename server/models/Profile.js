@@ -47,7 +47,11 @@ const profileSchema = new mongoose.Schema(
     mobileNumber: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     dob: { type: String },
-    gender: { type: String },
+    // gender: { type: String },
+    gender: {
+      type: String,
+      enum: ['Male', 'Female', 'Trans', 'Others'],
+    },    
     country: { type: String },
     state: { type: String },
     city: { type: String },
