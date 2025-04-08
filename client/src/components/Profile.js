@@ -41,7 +41,7 @@ const Profile = () => {
     <Box 
     sx={{
       minHeight: "100vh",
-      bgcolor: "black",
+      bgcolor: "white",
       position: "relative",
       overflow: "hidden",
     }}>
@@ -101,7 +101,7 @@ const Profile = () => {
           sx={{
             mt: 4,
             p: 3,
-            backgroundColor: "white",
+            backgroundColor: "#1c1c1c",
             borderRadius: 2,
             boxShadow: 3,
           }}
@@ -114,15 +114,15 @@ const Profile = () => {
               mb: 1,
             }}
           >
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            <Typography variant="h6" sx={{ fontWeight: "bold",color:"white" }}>
               Bio-Data
             </Typography>
             <Box sx={{ display: "flex" }}>
               <IconButton onClick={handleEditForm}>
-                <EditIcon />
+                <EditIcon sx={{ color: "white" }}/>
               </IconButton>
-              <IconButton color="primary" onClick={handleForm}>
-                <AddCircleIcon />
+              <IconButton onClick={handleForm}>
+                <AddCircleIcon sx={{ color: "white" }}/>
               </IconButton>
             </Box>
           </Box>
@@ -276,7 +276,7 @@ const Profile = () => {
 
           {/* Experience Section */}
 
-          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
+          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2,color:"white" }}>
             Experience
           </Typography>
           {profile && profile.experience && profile.experience.length > 0 ? (

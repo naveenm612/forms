@@ -360,7 +360,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { TextField, Button, Typography, Box, Grid, Paper, Snackbar, Alert, Container } from "@mui/material";
+import { TextField, Button, Typography, Box, Grid, Paper, Snackbar, Alert,  MenuItem, Container } from "@mui/material";
 import axios from "axios";
 
 export default function UpdateProfile() {
@@ -389,12 +389,29 @@ export default function UpdateProfile() {
     ],
   });
 
+  const [employmentTypes, setEmploymentTypes] = useState([]);
+  const [genderOptions, setGenderOptions] = useState([]);
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "success",
   });
+  useEffect(() => {
+    const fetchOptions = async () => {
+      try {
+        const [employmentRes, genderRes] = await Promise.all([
+          axios.get("http://localhost:5000/api/employment-types"),
+          axios.get("http://localhost:5000/api/genders"),
+        ]);
+        setEmploymentTypes(employmentRes.data);
+        setGenderOptions(genderRes.data);
+      } catch (err) {
+        console.error("Failed to fetch options:", err);
+      }
+    };
 
+    fetchOptions();
+  }, []);
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
@@ -491,7 +508,7 @@ export default function UpdateProfile() {
                 alignItems: "center",
                 justifyContent: "center",
                 minHeight: "100vh",
-                bgcolor: "black",
+                bgcolor: "white",
                 position: "relative",
                 overflow: "hidden",
               }}
@@ -579,14 +596,27 @@ export default function UpdateProfile() {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-               <TextField
-                required
-                fullWidth
-                id="gender"
-                label="Gender"
-                value={profileData.gender}
-                onChange={handleInputChange}
-              />
+            <TextField
+  select
+  required
+  fullWidth
+  id="gender"
+  label="Gender"
+  value={profileData.gender}
+  onChange={(event) =>
+    setProfileData((prevState) => ({
+      ...prevState,
+      gender: event.target.value,
+    }))
+  }
+>
+  {genderOptions.map((option) => (
+    <MenuItem key={option._id} value={option.name}>
+      {option.name}
+    </MenuItem>
+  ))}
+</TextField>
+               
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
@@ -636,14 +666,27 @@ export default function UpdateProfile() {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="employmentType"
-                  label="Employment Type"
-                  value={exp.employmentType}
-                  onChange={(event) => handleExperienceChange(index, event)}
-                />
+              <TextField
+  select
+  required
+  fullWidth
+  label="Employment Type"
+  value={exp.employmentType}
+  onChange={(event) =>
+    setProfileData((prevState) => {
+      const updatedExperience = [...prevState.experience];
+      updatedExperience[index].employmentType = event.target.value;
+      return { ...prevState, experience: updatedExperience };
+    })
+  }
+>
+  {employmentTypes.map((option) => (
+    <MenuItem key={option._id} value={option.name}>
+      {option.name}
+    </MenuItem>
+  ))}
+</TextField>
+
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
