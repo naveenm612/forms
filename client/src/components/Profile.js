@@ -78,6 +78,7 @@ const Profile = () => {
             backgroundColor: "white",
             borderRadius: 2,
             boxShadow: 3,
+            marginTop:"35px",
           }}
         >
           <Avatar
@@ -104,6 +105,7 @@ const Profile = () => {
             backgroundColor: "#1c1c1c",
             borderRadius: 2,
             boxShadow: 3,
+            mb:5,
           }}
         >
           <Box
