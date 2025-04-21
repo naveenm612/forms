@@ -382,7 +382,7 @@ export default function CompleteProfile() {
     } catch (error) {
       setSnackbar({
         open: true,
-        message: "Failed to save profile.",
+        message: "Fill all fields to save profile.",
         severity: "error",
       });
       console.error("Error saving profile:", error);
@@ -516,7 +516,7 @@ export default function CompleteProfile() {
             Experience
           </Typography>
           {experiences.map((exp, index) => (
-            <Box key={index} sx={{ mb: 4, border: "1px solid #ccc", p: 2, borderRadius: 2 }}>
+            <Box key={index} sx={{ mb: 4, border: "none", p: 2, borderRadius: 2 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <TextField

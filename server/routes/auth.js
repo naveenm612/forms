@@ -26,7 +26,7 @@ router.post("/signup", async (req, res) => {
 
     res.status(201).json({ message: "User created successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error creating user", error: error.message });
+    res.status(500).json({ message: "Fill all fields", error: error.message });
   }
 });
 
@@ -37,7 +37,7 @@ router.post("/login", async (req, res) => {
     try {
       const user = await User.findOne({ email });
       if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ message: "Sign Up or Worng Email Password" });
       }
   
       const isPasswordValid = await bcrypt.compare(password, user.password);
