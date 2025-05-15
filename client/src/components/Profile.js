@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Card, CardContent, Grid, IconButton } from "@mui/material";
-import Button from "@mui/material/Button";
+import { CardContent, Grid, IconButton,Tooltip } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
-import "./Style.css";
+
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -37,114 +36,118 @@ const Profile = () => {
   };
 
   return (
-    
-    <Box 
-    sx={{
-      minHeight: "100vh",
-      bgcolor: "white",
-      position: "relative",
-      overflow: "hidden",
-    }}>
-       <Box
-            sx={{
-              position: "absolute",
-              top: "10%",
-              left: "5%",
-              width: "100px",
-              height: "100px",
-              bgcolor: "blue",
-              borderRadius: "50%",
-              zIndex: 0,
-            }}
-          />
-          <Box
-            sx={{
-              position: "absolute",
-              bottom: "10%",
-              right: "5%",
-              width: "150px",
-              height: "150px",
-              bgcolor: "blue",
-              // borderRadius: "50%",
-              zIndex: 0,
-            }}
-          />
-      <Box sx={{ maxWidth: 800, mx: "auto" }}>
-        {/* Profile Avatar and Name */}
-        <Box
+
+    <Box
+     sx={{
+        bgcolor: "#1976d2",
+        padding: 4.15,
+      }}>
+      {/* Profile Avatar and Name */}
+      <Box
+        sx={{
+          textAlign: "center",
+          p: 4,
+        }}>
+
+        <Typography
+          variant="h2"
           sx={{
-            textAlign: "center",
-            p: 4,
-            backgroundColor: "white",
-            borderRadius: 2,
-            boxShadow: 3,
-            marginTop:"35px",
+            fontWeight: "bold",
+            fontFamily: "Lora, serif",
+            fontSize: "2.5rem",
+            color: "white",
+            marginBottom: 1,
+          }}>
+          Profile </Typography>
+        <Typography
+          variant="subtitle1"
+          sx={{
+            fontSize: "1.2rem",
+            color: "white",
+            marginBottom: 1,
+          }}>
+          I'm a <span>
+            {profile && profile.experience && profile.experience.length > 0
+              ? profile.experience[0].jobTitle
+              : "-"}
+          </span>
+        </Typography>
+      </Box>
+
+      {/* Name Section */}
+      <Grid item xs={12} textAlign="center">
+        <Avatar
+          sx={{
+            bgcolor: "green",
+            width: 150,
+            height: 150,
+            mx: "auto",
+            fontSize: 40,
           }}
         >
-          <Avatar
-            sx={{
-              bgcolor: "green",
-              width: 96,
-              height: 96,
-              mx: "auto",
-              fontSize: 40,
-            }}
-          >
-            {profile ? profile.name.charAt(0) : "M"}
-          </Avatar>
-          <Typography variant="h5" sx={{ mt: 2, fontWeight: "bold" }}>
-            {profile ? profile.name : "Loading..."}
-          </Typography>
-        </Box>
+          {profile ? profile.name.charAt(0) : "M"}
+        </Avatar>
+        {/* <Typography variant="h5" sx={{ mt: 2, fontWeight: "bold" }}>
+      {profile ? profile.name : "Loading..."}
+    </Typography> */}
+      </Grid>
 
+      {/* Bio-Data and Experience Section */}
+      <Grid container item xs={12} spacing={2}>
         {/* Bio-Data Section */}
-        <Box
-          sx={{
-            mt: 4,
-            p: 3,
-            backgroundColor: "#1c1c1c",
-            borderRadius: 2,
-            boxShadow: 3,
-            mb:5,
-          }}
-        >
+        <Grid item xs={12} md={6}>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              mb: 1,
+              mt: 3,
+              ml: 5,
+              mr: 5,
+              p: 3,
+              backgroundColor: "white",
+              borderRadius: 2,
+              boxShadow: 3,
             }}
           >
-            <Typography variant="h6" sx={{ fontWeight: "bold",color:"white" }}>
-              Bio-Data
-            </Typography>
-            <Box sx={{ display: "flex" }}>
-              <IconButton onClick={handleEditForm}>
-                <EditIcon sx={{ color: "white" }}/>
-              </IconButton>
-              <IconButton onClick={handleForm}>
-                <AddCircleIcon sx={{ color: "white" }}/>
-              </IconButton>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                mb: 1,
+                padding: "10px"
+              }}
+            >
+              <Typography variant="h6" sx={{ fontWeight: "bold", color: "#1976d2" }}>
+                About Me
+              </Typography>
+              <Box sx={{ display: "flex" }}>
+                <Tooltip title="Edit">
+                <IconButton onClick={handleEditForm}>
+                  <EditIcon sx={{ color: "#1976d2" }} />
+                </IconButton>
+                </Tooltip>
+                <Tooltip title="Create">
+                <IconButton onClick={handleForm}>
+                  <AddCircleIcon sx={{ color: "#1976d2" }} />
+                </IconButton>
+                </Tooltip>
+              </Box>
             </Box>
-          </Box>
 
-          {profile ? (
-            <Card sx={{ mb: 1 }}>
+            {profile ? (
               <CardContent>
+
+                {/* Bio-data fields */}
                 <div>
                   <Grid container spacing={2}>
                     <Grid item md={4}>
-                      <div className="firstName">Name</div>
+                      <div>Name</div>
                     </Grid>
                     <Grid item md={1}>
                       :
                     </Grid>
                     <Grid item md={7}>
-                      <span className="lastName">
-                        {profile.name
-                          ? profile.name
-                          : "-"}
+                      <span>
+                        {profile.name || "-"}
                       </span>
                     </Grid>
                   </Grid>
@@ -152,16 +155,14 @@ const Profile = () => {
                 <div>
                   <Grid container spacing={2}>
                     <Grid item md={4}>
-                      <div className="firstName">E-Mail</div>
+                      <div>E-Mail</div>
                     </Grid>
                     <Grid item md={1}>
                       :
                     </Grid>
                     <Grid item md={7}>
-                      <span className="lastName">
-                        {profile.email
-                          ? profile.email
-                          : "-"}
+                      <span>
+                        {profile.email || "-"}
                       </span>
                     </Grid>
                   </Grid>
@@ -169,16 +170,14 @@ const Profile = () => {
                 <div>
                   <Grid container spacing={2}>
                     <Grid item md={4}>
-                      <div className="firstName">Gender</div>
+                      <div>Gender</div>
                     </Grid>
                     <Grid item md={1}>
                       :
                     </Grid>
                     <Grid item md={7}>
-                      <span className="lastName">
-                        {profile.gender
-                          ? profile.gender
-                          : "-"}
+                      <span>
+                        {profile.gender || "-"}
                       </span>
                     </Grid>
                   </Grid>
@@ -186,16 +185,14 @@ const Profile = () => {
                 <div>
                   <Grid container spacing={2}>
                     <Grid item md={4}>
-                      <div className="firstName">Mobile Number</div>
+                      <div>Mobile Number</div>
                     </Grid>
                     <Grid item md={1}>
                       :
                     </Grid>
                     <Grid item md={7}>
-                      <span className="lastName">
-                        {profile.mobileNumber
-                          ? profile.mobileNumber
-                          : "-"}
+                      <span>
+                        {profile.mobileNumber || "-"}
                       </span>
                     </Grid>
                   </Grid>
@@ -203,16 +200,14 @@ const Profile = () => {
                 <div>
                   <Grid container spacing={2}>
                     <Grid item md={4}>
-                      <div className="firstName">Date of Birth</div>
+                      <div>Date of Birth</div>
                     </Grid>
                     <Grid item md={1}>
                       :
                     </Grid>
                     <Grid item md={7}>
-                      <span className="lastName">
-                        {profile.dob
-                          ? profile.dob
-                          : "-"}
+                      <span>
+                        {profile.dob || "-"}
                       </span>
                     </Grid>
                   </Grid>
@@ -220,16 +215,14 @@ const Profile = () => {
                 <div>
                   <Grid container spacing={2}>
                     <Grid item md={4}>
-                      <div className="firstName">Country</div>
+                      <div>Country</div>
                     </Grid>
                     <Grid item md={1}>
                       :
                     </Grid>
                     <Grid item md={7}>
-                      <span className="lastName">
-                        {profile.country
-                          ? profile.country
-                          : "-"}
+                      <span>
+                        {profile.country || "-"}
                       </span>
                     </Grid>
                   </Grid>
@@ -237,16 +230,14 @@ const Profile = () => {
                 <div>
                   <Grid container spacing={2}>
                     <Grid item md={4}>
-                      <div className="firstName">State</div>
+                      <div>State</div>
                     </Grid>
                     <Grid item md={1}>
                       :
                     </Grid>
                     <Grid item md={7}>
-                      <span className="lastName">
-                        {profile.state
-                          ? profile.state
-                          : "-"}
+                      <span>
+                        {profile.state || "-"}
                       </span>
                     </Grid>
                   </Grid>
@@ -254,50 +245,80 @@ const Profile = () => {
                 <div>
                   <Grid container spacing={2}>
                     <Grid item md={4}>
-                      <div className="firstName">City</div>
+                      <div>City</div>
                     </Grid>
                     <Grid item md={1}>
                       :
                     </Grid>
                     <Grid item md={7}>
-                      <span className="lastName">
-                        {profile.city
-                          ? profile.city
-                          : "-"}
+                      <span>
+                        {profile.city || "-"}
                       </span>
                     </Grid>
                   </Grid>
                 </div>
               </CardContent>
-            </Card>
-          ) : (
-            <Typography variant="body1" color="textSecondary">
-              Bio-data not available.
-            </Typography>
-          )}
+            ) : (
+              <Typography variant="body1" color="textSecondary">
+                Bio-data not available.
+              </Typography>
+            )}
+          </Box>
+        </Grid>
 
-          {/* Experience Section */}
+        {/* Experience Section */}
+        <Grid item xs={12} md={6}>
+          <Box
+            sx={{
+              mt: 3,
+              ml: 5,
+              mr: 5,
+              p: 3,
+              backgroundColor: "white",
+              borderRadius: 2,
+              boxShadow: 3,
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "10px"
+              }}
+            >
+              <Typography variant="h6" sx={{ fontWeight: "bold", color: "#1976d2" }}>
+                About My Experience
+              </Typography>
+              <Box sx={{ display: "flex" }}>
+                <Tooltip title="Edit">
+                <IconButton onClick={handleEditForm}>
+                  <EditIcon sx={{ color: "#1976d2" }} />
+                </IconButton>
+                </Tooltip>
+                <Tooltip title="Create">
+                <IconButton onClick={handleForm}>
+                  <AddCircleIcon sx={{ color: "#1976d2" }} />
+                </IconButton>
+                </Tooltip>
+              </Box>
+            </Box>
 
-          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2,color:"white" }}>
-            Experience
-          </Typography>
-          {profile && profile.experience && profile.experience.length > 0 ? (
-            profile.experience.map((exp, index) => (
-              <Card sx={{ mb: 2 }} key={index}>
+            {profile && profile.experience && profile.experience.length > 0 ? (
+              profile.experience.map((exp, index) => (
                 <CardContent>
+                  {/* Experience fields */}
                   <div>
                     <Grid container spacing={2}>
                       <Grid item md={4}>
-                        <div className="firstName">Job Title</div>
+                        <div>Job Title</div>
                       </Grid>
                       <Grid item md={1}>
                         :
                       </Grid>
                       <Grid item md={7}>
-                        <span className="lastName">
-                          {exp.jobTitle
-                            ? exp.jobTitle
-                            : "-"}
+                        <span>
+                          {exp.jobTitle || "-"}
                         </span>
                       </Grid>
                     </Grid>
@@ -305,16 +326,14 @@ const Profile = () => {
                   <div>
                     <Grid container spacing={2}>
                       <Grid item md={4}>
-                        <div className="firstName">Company Name</div>
+                        <div>Company Name</div>
                       </Grid>
                       <Grid item md={1}>
                         :
                       </Grid>
                       <Grid item md={7}>
-                        <span className="lastName">
-                          {exp.companyName
-                            ? exp.companyName
-                            : "-"}
+                        <span>
+                          {exp.companyName || "-"}
                         </span>
                       </Grid>
                     </Grid>
@@ -322,16 +341,14 @@ const Profile = () => {
                   <div>
                     <Grid container spacing={2}>
                       <Grid item md={4}>
-                        <div className="firstName">Employment Type</div>
+                        <div>Employment Type</div>
                       </Grid>
                       <Grid item md={1}>
                         :
                       </Grid>
                       <Grid item md={7}>
-                        <span className="lastName">
-                          {exp.employmentType
-                            ? exp.employmentType
-                            : "-"}
+                        <span>
+                          {exp.employmentType || "-"}
                         </span>
                       </Grid>
                     </Grid>
@@ -339,16 +356,14 @@ const Profile = () => {
                   <div>
                     <Grid container spacing={2}>
                       <Grid item md={4}>
-                        <div className="firstName">Location</div>
+                        <div>Location</div>
                       </Grid>
                       <Grid item md={1}>
                         :
                       </Grid>
                       <Grid item md={7}>
-                        <span className="lastName">
-                          {exp.location
-                            ? exp.location
-                            : "-"}
+                        <span>
+                          {exp.location || "-"}
                         </span>
                       </Grid>
                     </Grid>
@@ -356,16 +371,14 @@ const Profile = () => {
                   <div>
                     <Grid container spacing={2}>
                       <Grid item md={4}>
-                        <div className="firstName">Start Date</div>
+                        <div>Start Date</div>
                       </Grid>
                       <Grid item md={1}>
                         :
                       </Grid>
                       <Grid item md={7}>
-                        <span className="lastName">
-                          {exp.startDate
-                            ? exp.startDate
-                            : "-"}
+                        <span>
+                          {exp.startDate || "-"}
                         </span>
                       </Grid>
                     </Grid>
@@ -373,16 +386,14 @@ const Profile = () => {
                   <div>
                     <Grid container spacing={2}>
                       <Grid item md={4}>
-                        <div className="firstName">End Date</div>
+                        <div>End Date</div>
                       </Grid>
                       <Grid item md={1}>
                         :
                       </Grid>
                       <Grid item md={7}>
-                        <span className="lastName">
-                          {exp.endDate
-                            ? exp.endDate
-                            : "Present"}
+                        <span>
+                          {exp.endDate || "Present"}
                         </span>
                       </Grid>
                     </Grid>
@@ -390,16 +401,14 @@ const Profile = () => {
                   <div>
                     <Grid container spacing={2}>
                       <Grid item md={4}>
-                        <div className="firstName">Current CTC (₹)</div>
+                        <div>Current CTC (₹)</div>
                       </Grid>
                       <Grid item md={1}>
                         :
                       </Grid>
                       <Grid item md={7}>
-                        <span className="lastName">
-                          {exp.currentCTC
-                            ? exp.currentCTC
-                            : "-"}
+                        <span>
+                          {exp.currentCTC || "-"}
                         </span>
                       </Grid>
                     </Grid>
@@ -407,16 +416,14 @@ const Profile = () => {
                   <div>
                     <Grid container spacing={2}>
                       <Grid item md={4}>
-                        <div className="firstName">Expected CTC (₹)</div>
+                        <div>Expected CTC (₹)</div>
                       </Grid>
                       <Grid item md={1}>
                         :
                       </Grid>
                       <Grid item md={7}>
-                        <span className="lastName">
-                          {exp.expectedCTC
-                            ? exp.expectedCTC
-                            : "-"}
+                        <span>
+                          {exp.expectedCTC || "-"}
                         </span>
                       </Grid>
                     </Grid>
@@ -424,30 +431,28 @@ const Profile = () => {
                   <div>
                     <Grid container spacing={2}>
                       <Grid item md={4}>
-                        <div className="firstName">Description</div>
+                        <div>Description</div>
                       </Grid>
                       <Grid item md={1}>
                         :
                       </Grid>
                       <Grid item md={7}>
-                        <span className="lastName">
-                          {exp.description
-                            ? exp.description
-                            : "-"}
+                        <span>
+                          {exp.description || "-"}
                         </span>
                       </Grid>
                     </Grid>
                   </div>
                 </CardContent>
-              </Card>
-            ))
-          ) : (
-            <Typography variant="body1" color="textSecondary">
-              No experience available.
-            </Typography>
-          )}
-        </Box>
-      </Box>
+              ))
+            ) : (
+              <Typography variant="body1" color="textSecondary">
+                No experience available.
+              </Typography>
+            )}
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 };
