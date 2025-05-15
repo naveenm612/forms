@@ -1,253 +1,3 @@
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import {
-//   TextField,
-//   Button,
-//   Typography,
-//   Box,
-//   Grid,
-//   MenuItem,
-//   Select,
-//   FormControl,
-//   InputLabel,
-//   Paper,
-//   Checkbox,
-//   Snackbar,
-//   Alert,
-//   FormControlLabel,
-//   Container,
-// } from "@mui/material";
-// import axios from "axios";
-
-// export default function CompleteProfile() {
-//   const navigate = useNavigate();
-
-//   // State management
-//   const [mobileNumber, setMobileNumber] = useState("");
-//   const [snackbar, setSnackbar] = useState({
-//     open: false,
-//     message: "",
-//     severity: "success",
-//   });
-//   const [currentJob, setCurrentJob] = useState(false); // Checkbox state
-
-//   // Handle mobile number change
-//   const handleMobileNumberChange = (event) => {
-//     const value = event.target.value;
-//     if (/^\d*$/.test(value) && value.length <= 10) {
-//       setMobileNumber(value);
-//     }
-//   };
-
-//   // Handle form submission
-//   const handleForm = async (event) => {
-//     event.preventDefault();
-
-//     const profileData = {
-//       name: document.getElementById("name").value,
-//       mobileNumber: mobileNumber,
-//       email: document.getElementById("email").value,
-//       dob: document.getElementById("dob").value || null,
-//       gender: document.getElementById("gender").value,
-//       country: document.getElementById("country").value,
-//       state: document.getElementById("state").value,
-//       city: document.getElementById("city").value,
-//       experience: [
-//         {
-//           jobTitle: document.getElementById("job-title").value,
-//           employmentType: document.getElementById("employment-type").value,
-//           companyName: document.getElementById("company-name").value,
-//           location: document.getElementById("location").value,
-//           startDate: document.getElementById("start-date").value || null,
-//           endDate: currentJob ? null : document.getElementById("end-date").value || null,
-//           currentCTC: parseFloat(document.getElementById("current-ctc").value) || 0,
-//           expectedCTC: parseFloat(document.getElementById("expected-ctc").value) || 0,
-//           description: document.getElementById("description").value,
-//         },
-//       ],
-//     };
-
-//     try {
-//       const response = await axios.post("http://localhost:5000/api/profile", profileData);
-//       setSnackbar({
-//         open: true,
-//         message: "Profile saved successfully!",
-//         severity: "success",
-//       });
-//       console.log(response.data);
-
-//       setTimeout(() => {
-//         navigate("/profile");
-//       }, 3000);
-      
-//     } catch (error) {
-//       setSnackbar({
-//         open: true,
-//         message: "Failed to save profile.",
-//         severity: "error",
-//       });
-//       console.error("Error saving profile:", error);
-//     }
-//   };
-
-//   // Handle snackbar close
-//   const handleCloseSnackbar = () => {
-//     setSnackbar({ ...snackbar, open: false });
-//   };
-
-//   return (
-//     <Container maxWidth="md" sx={{ mt: 4 }}>
-//       <Typography variant="h5" align="center" gutterBottom>
-//         Complete Your Profile
-//       </Typography>
-//       <Typography variant="subtitle1" align="center" color="textSecondary" gutterBottom>
-//         Enter your details to complete your profile.
-//       </Typography>
-
-//       <Paper elevation={3} sx={{ p: 4, mt: 4, borderRadius: 2 }}>
-//         {/* Basic Information */}
-//         <Typography variant="h6" gutterBottom>
-//           Basic Information
-//         </Typography>
-//         <Box component="form" noValidate onSubmit={handleForm}>
-//           <Grid container spacing={2}>
-//             <Grid item xs={12} sm={6}>
-//               <TextField required fullWidth id="name" label="Name" />
-//             </Grid>
-//             <Grid item xs={12} sm={6}>
-//               <TextField
-//                 required
-//                 fullWidth
-//                 id="mobile-number"
-//                 label="Mobile Number"
-//                 value={mobileNumber}
-//                 onChange={handleMobileNumberChange}
-//                 inputProps={{ maxLength: 10 }}
-//               />
-//             </Grid>
-//             <Grid item xs={12}>
-//               <TextField required fullWidth id="email" label="Email Address" />
-//             </Grid>
-//             <Grid item xs={12} sm={6}>
-//               <TextField
-//                 fullWidth
-//                 id="dob"
-//                 label="Date of Birth"
-//                 type="date"
-//                 InputLabelProps={{ shrink: true }}
-//               />
-//             </Grid>
-//             <Grid item xs={12} sm={6}>
-//               {/* <FormControl fullWidth required>
-//                 <InputLabel id="gender-label">Gender</InputLabel>
-//                 <Select labelId="gender-label" id="gender" defaultValue="">
-//                   <MenuItem value="Male">Male</MenuItem>
-//                   <MenuItem value="Female">Female</MenuItem>
-//                   <MenuItem value="Non-Binary">Non-Binary</MenuItem>
-//                   <MenuItem value="Other">Other</MenuItem>
-//                   <MenuItem value="Prefer not to say">Prefer not to say</MenuItem>
-//                 </Select>
-//               </FormControl> */}
-//               <TextField required fullWidth id="gender" label="Gender" />
-//               </Grid>
-//             <Grid item xs={12} sm={4}>
-//               <TextField required fullWidth id="country" label="Country" />
-//             </Grid>
-//             <Grid item xs={12} sm={4}>
-//               <TextField required fullWidth id="state" label="State" />
-//             </Grid>
-//             <Grid item xs={12} sm={4}>
-//               <TextField required fullWidth id="city" label="City" />
-//             </Grid>
-//           </Grid>
-
-//           {/* Experience */}
-//           <Typography variant="h6" sx={{ mt: 4 }} gutterBottom>
-//             Experience
-//           </Typography>
-//           <Grid container spacing={2}>
-//             <Grid item xs={12} sm={6}>
-//               <TextField required fullWidth id="job-title" label="Job Title" />
-//             </Grid>
-//             <Grid item xs={12} sm={6}>
-//                <TextField required fullWidth id="employment-type" label="Employment Type" />
-//             </Grid>
-//             <Grid item xs={12} sm={6}>
-//               <TextField required fullWidth id="company-name" label="Company Name" />
-//             </Grid>
-//             <Grid item xs={12} sm={6}>
-//               <TextField required fullWidth id="location" label="Location" />
-//             </Grid>
-//             <Grid item xs={12}>
-//               <FormControlLabel
-//                 control={<Checkbox checked={currentJob} onChange={() => setCurrentJob(!currentJob)} />}
-//                 label="I currently work here"
-//               />
-//             </Grid>
-//             <Grid item xs={12} sm={6}>
-//               <TextField
-//                 required
-//                 fullWidth
-//                 id="start-date"
-//                 label="Start Date"
-//                 type="date"
-//                 InputLabelProps={{ shrink: true }}
-//               />
-//             </Grid>
-//             <Grid item xs={12} sm={6}>
-//               <TextField
-//                 fullWidth
-//                 id="end-date"
-//                 label="End Date"
-//                 type="date"
-//                 InputLabelProps={{ shrink: true }}
-//                 disabled={currentJob}
-//               />
-//             </Grid>
-//             <Grid item xs={12} sm={6}>
-//               <TextField required fullWidth id="current-ctc" label="Current CTC (₹)" />
-//             </Grid>
-//             <Grid item xs={12} sm={6}>
-//               <TextField required fullWidth id="expected-ctc" label="Expected CTC (₹)" />
-//             </Grid>
-//             <Grid item xs={12}>
-//               <TextField
-//                 fullWidth
-//                 id="description"
-//                 label="Description"
-//                 multiline
-//                 rows={4}
-//                 placeholder="Describe your responsibilities and achievements"
-//               />
-//             </Grid>
-//           </Grid>
-
-//           <Box sx={{ mt: 4 }}>
-//             <Button fullWidth variant="contained" color="primary" size="large" type="submit">
-//               Save Profile
-//             </Button>
-//           </Box>
-//         </Box>
-//       </Paper>
-
-//       {/* Snackbar */}
-//       <Snackbar
-//         open={snackbar.open}
-//         autoHideDuration={6000}
-//         onClose={handleCloseSnackbar}
-//         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-//       >
-//         <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: "100%" }}>
-//           {snackbar.message}
-//         </Alert>
-//       </Snackbar>
-//     </Container>
-//   );
-// }
-
-
-
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -256,7 +6,6 @@ import {
   Typography,
   Box,
   Grid,
-  Paper,
   Checkbox,
   Snackbar,
   Alert,
@@ -266,7 +15,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-export default function CompleteProfile() {
+ function CompleteProfile() {
   const navigate = useNavigate();
 
   // State management
@@ -395,60 +144,48 @@ export default function CompleteProfile() {
   };
 
   return (
-     <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            minHeight: "100vh",
-            bgcolor: "white",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          {/* Background Shapes */}
-          <Box
-            sx={{
-              position: "absolute",
-              top: "10%",
-              left: "5%",
-              width: "100px",
-              height: "100px",
-              bgcolor: "blue",
-              borderRadius: "50%",
-              zIndex: 0,
-            }}
-          />
-          <Box
-            sx={{
-              position: "absolute",
-              bottom: "10%",
-              right: "5%",
-              width: "150px",
-              height: "150px",
-              bgcolor: "blue",
-              // borderRadius: "50%",
-              zIndex: 0,
-            }}
-          />
-      
-    <Container maxWidth="md"  sx={{
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        // alignItems: "center",
+        justifyContent: "space-between",
+        bgcolor: "#1976d2",
+        position: "relative",
+        overflow: "hidden",
+        padding: 4,
+      }}>
+      {/* Left Content */}
+      <Box
+        sx={{
+          pl: { xs: 0, md: 4 },
           zIndex: 1,
-          bgcolor: "#1c1c1c",
+          color: "white",
+          textAlign: { xs: "center", md: "left" },
+        }}
+      >
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
+          Fill Your Profile Here
+        </Typography>
+        <Typography variant="p">
+          Enter your details to complete your profile.
+        </Typography>
+      </Box>
+
+      {/* Form Container */}
+      <Container component="main"
+        maxWidth="md"
+        sx={{
+          bgcolor: "white",
           borderRadius: 4,
           p: 4,
           boxShadow: 4,
+          zIndex: 1,
+          textAlign: "center",
         }}>
-      <Typography variant="h5" align="center" color="white" gutterBottom>
-        Complete Your Profile
-      </Typography>
-      <Typography variant="subtitle1" align="center" color="white" gutterBottom>
-        Enter your details to complete your profile.
-      </Typography>
 
-      <Paper elevation={3} sx={{ p: 4, mt: 4, borderRadius: 2, }}>
         {/* Basic Information */}
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom sx={{ color: "#1976d2", mb: 4 }}>
           Basic Information
         </Typography>
         <Box component="form" noValidate onSubmit={handleForm}>
@@ -479,27 +216,24 @@ export default function CompleteProfile() {
                 InputLabelProps={{ shrink: true }}
               />
             </Grid>
-            {/* <Grid item xs={12} sm={6}>
-              <TextField required fullWidth id="gender" label="Gender" />
-            </Grid> */}
-              <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
-  select
-  required
-  fullWidth
-  id="gender"
-  label="Gender"
-  value={gender}
-  onChange={(e) => setGender(e.target.value)}
->
-  {genderOptions?.map((option) => (
-    <MenuItem key={option._id} value={option.name}>
-      {option.name}
-    </MenuItem>
-  ))}
-</TextField>
+                select
+                required
+                fullWidth
+                id="gender"
+                label="Gender"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+              >
+                {genderOptions?.map((option) => (
+                  <MenuItem key={option._id} value={option.name}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
 
-              </Grid>
+            </Grid>
             <Grid item xs={12} sm={4}>
               <TextField required fullWidth id="country" label="Country" />
             </Grid>
@@ -512,7 +246,7 @@ export default function CompleteProfile() {
           </Grid>
 
           {/* Experience */}
-          <Typography variant="h6" sx={{ mt: 4 }} gutterBottom>
+          <Typography variant="h6" sx={{ mt: 4, color: "#1976d2" }} gutterBottom>
             Experience
           </Typography>
           {experiences.map((exp, index) => (
@@ -527,33 +261,24 @@ export default function CompleteProfile() {
                     onChange={(e) => handleExperienceChange(index, "jobTitle", e.target.value)}
                   />
                 </Grid>
-                {/* <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
+                    select
                     required
                     fullWidth
                     label="Employment Type"
                     value={exp.employmentType}
-                    onChange={(e) => handleExperienceChange(index, "employmentType", e.target.value)}
-                  />
-                </Grid> */}
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      select
-                      required
-                      fullWidth
-                      label="Employment Type"
-                      value={exp.employmentType}
-                      onChange={(e) =>
-                        handleExperienceChange(index, "employmentType", e.target.value)
-                      }
-                    >
-                      {employmentTypes?.map((option) => (
-                        <MenuItem key={option} value={option.name}>
-                          {option.name}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Grid>
+                    onChange={(e) =>
+                      handleExperienceChange(index, "employmentType", e.target.value)
+                    }
+                  >
+                    {employmentTypes?.map((option) => (
+                      <MenuItem key={option} value={option.name}>
+                        {option.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     required
@@ -572,7 +297,7 @@ export default function CompleteProfile() {
                     onChange={(e) => handleExperienceChange(index, "location", e.target.value)}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-start" }}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -638,42 +363,46 @@ export default function CompleteProfile() {
                 </Grid>
               </Grid>
               <Box sx={{ mt: 2, textAlign: "right" }}>
-              {experiences.length > 1 && (
-                <Button
-                  color="error"
-                  variant="outlined"
-                  onClick={() => removeExperience(index)}
-                >
-                  Remove
-                </Button>
-              )}
+                {experiences.length > 1 && (
+                  <Button
+                    color="error"
+                    variant="outlined"
+                    onClick={() => removeExperience(index)}
+                  >
+                    Remove
+                  </Button>
+                )}
               </Box>
             </Box>
           ))}
-          <Button variant="outlined" fullWidth onClick={addExperience} sx={{ mt: 2 }}>
+          <Button variant="outlined" fullWidth onClick={addExperience} sx={{ mt: 2, textTransform: "capitalize", color: "red", borderColor: "red", }}>
             Add Experience
           </Button>
 
           <Box sx={{ mt: 4 }}>
-            <Button fullWidth variant="contained" color="primary" size="large" type="submit">
+            <Button fullWidth variant="contained" size="large" type="submit"
+              sx={{
+                textTransform: "capitalize",
+                backgroundColor: "red",
+              }}>
               Save Profile
             </Button>
           </Box>
         </Box>
-      </Paper>
 
-      {/* Snackbar */}
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      >
-        <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: "100%" }}>
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
-    </Container>
+        {/* Snackbar */}
+        <Snackbar
+          open={snackbar.open}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        >
+          <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: "100%" }}>
+            {snackbar.message}
+          </Alert>
+        </Snackbar>
+      </Container>
     </Box>
   );
 }
+export default CompleteProfile;
