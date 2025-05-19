@@ -17,6 +17,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import EmailIcon from "@mui/icons-material/Email";
+import api from "../api";
 
  function LoginForm() {
   const navigate = useNavigate();
@@ -24,36 +25,32 @@ import EmailIcon from "@mui/icons-material/Email";
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+     if (!email || !password) {
+      setSnackbarMessage("Please fill in all required fields.");
+      setSnackbarSeverity("warning");
+      setSnackbarOpen(true);
+      return;
+    }
 
-    const user = {
-      email: data.get("email"),
-      password: data.get("password"),
-    };
+    const user = { email, password };
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+   const response = await api.login(user);
+      setSnackbarMessage("Login successful!");
+      setSnackbarSeverity("success");
+      setSnackbarOpen(true);
 
-      const result = await response.json();
-      if (response.ok) {
-        setSnackbarMessage("Login successful!");
-        setSnackbarSeverity("success");
-        setSnackbarOpen(true);
-        navigate("/profile");
-      } else {
-        setSnackbarMessage(result.message || "Login failed. Please try again.");
-        setSnackbarSeverity("error");
-        setSnackbarOpen(true);
-      }
+      // Optionally, save the token or user info
+      localStorage.setItem("authToken", response.data.token);
+
+      setTimeout(() => {
+        navigate("/profile"); // Adjust the path to your dashboard or landing page
+      }, 2000);
     } catch (error) {
       console.error("Error during login:", error);
       setSnackbarMessage("Failed to log in. Try again later.");
@@ -150,6 +147,8 @@ import EmailIcon from "@mui/icons-material/Email";
                 placeholder="example@gmail.com"
                 name="email"
                 autoComplete="email"
+                 value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 sx={{ bgcolor: "white", borderRadius: 2 }}
               />
             </div>
@@ -174,6 +173,8 @@ import EmailIcon from "@mui/icons-material/Email";
                 type={showPassword ? "text" : "password"}
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">

@@ -13,7 +13,7 @@ import {
   Container,
   MenuItem,
 } from "@mui/material";
-import axios from "axios";
+import api from "../api";
 
  function CompleteProfile() {
   const navigate = useNavigate();
@@ -48,8 +48,8 @@ import axios from "axios";
     const fetchOptions = async () => {
       try {
         const [employmentRes, genderRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/employment-types"),
-          axios.get("http://localhost:5000/api/genders"),
+           api.getEmploymentTypes(),
+          api.getGenders(),
         ]);
         setEmploymentTypes(employmentRes.data);
         setGenderOptions(genderRes.data);
@@ -106,10 +106,10 @@ import axios from "axios";
 
     const profileData = {
       name: document.getElementById("name").value,
-      mobileNumber: mobileNumber,
+      mobileNumber,
       email: document.getElementById("email").value,
       dob: document.getElementById("dob").value || null,
-      gender: gender,
+      gender,
       country: document.getElementById("country").value,
       state: document.getElementById("state").value,
       city: document.getElementById("city").value,
@@ -117,13 +117,12 @@ import axios from "axios";
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/api/profile", profileData);
+     await api.createProfile(profileData);
       setSnackbar({
         open: true,
         message: "Profile saved successfully!",
         severity: "success",
       });
-      console.log(response.data);
 
       setTimeout(() => {
         navigate("/profile");

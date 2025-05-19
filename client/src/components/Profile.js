@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { CardContent, Grid, IconButton,Tooltip } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { useNavigate } from "react-router-dom";
+import api from "../api";
 
 
 const Profile = () => {
@@ -16,7 +16,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchLastUpdatedProfile = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/profile");
+        const response = await api.getProfile();
         setProfile(response.data);
       } catch (error) {
         console.error("Error fetching profile:", error);

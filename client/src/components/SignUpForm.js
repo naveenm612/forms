@@ -18,6 +18,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import EmailIcon from "@mui/icons-material/Email";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import PersonIcon from "@mui/icons-material/Person";
+import api from "../api";
 
 function SignUpForm() {
   const navigate = useNavigate();
@@ -47,25 +48,13 @@ function SignUpForm() {
       password,
     };
 
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-
-      const result = await response.json();
-      if (response.ok) {
-        setSnackbar({ open: true, message: "User signed up successfully!", severity: "success" });
-        setTimeout(() => navigate("/profile"), 2000);
-      } else {
-        setSnackbar({ open: true, message: result.message, severity: "error" });
-      }
-    } catch (error) {
+      try {
+      const response = await api.signup(user); 
+      setSnackbar({ open: true, message: "User signed up successfully!", severity: "success" });
+      setTimeout(() => navigate("/profile"), 2000);
+    }  catch (error) {
       console.error("Error during signup:", error);
-      setSnackbar({ open: true, message: "Failed to sign up. Try again later.", severity: "error" });
+      setSnackbar({ open: true, message:  error.response?.data?.message ||"Failed to sign up. Try again later.", severity: "error" });
     }
   };
 
