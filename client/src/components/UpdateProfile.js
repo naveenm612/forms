@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField, Button, Typography, Box, Grid, Snackbar, Alert, MenuItem, Container } from "@mui/material";
-import axios from "axios";
+import api from "../api";
 
 function UpdateProfile() {
   const navigate = useNavigate();
@@ -38,10 +38,10 @@ function UpdateProfile() {
   });
   useEffect(() => {
     const fetchOptions = async () => {
-      try {
+       try {
         const [employmentRes, genderRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/employment-types"),
-          axios.get("http://localhost:5000/api/genders"),
+          api.getEmploymentTypes(),
+          api.getGenders(),
         ]);
         setEmploymentTypes(employmentRes.data);
         setGenderOptions(genderRes.data);
@@ -55,7 +55,7 @@ function UpdateProfile() {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/profile");
+        const response = await api.getProfile();
         setProfileData(response.data);
       } catch (error) {
         console.error("Failed to fetch profile data", error);
@@ -113,10 +113,7 @@ function UpdateProfile() {
     event.preventDefault();
 
     try {
-      const response = await axios.put(
-        `http://localhost:5000/api/profile/${profileData._id}`,
-        profileData
-      );
+      const response = await api.updateProfile(profileData._id, profileData);
       setSnackbar({
         open: true,
         message: "Profile updated successfully!",
