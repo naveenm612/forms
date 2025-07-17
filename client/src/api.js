@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5000/api";  //old url
+// const API_BASE_URL = "https://forms-pq7e.vercel.app/"; //deploy server url
+
 
 const api = {
   getEmploymentTypes: async () => {
