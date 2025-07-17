@@ -30,7 +30,7 @@ mongoose
 
 // ✅ Add this route to fix "Cannot GET /"
 app.get("/", (req, res) => {
-  res.send("API is running");
+  res.send("Naveen's Project running");
 });
 
 // API Routes
